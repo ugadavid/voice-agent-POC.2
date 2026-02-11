@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voice Agent – Storyline Bridge</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 16px; }
+      .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+      input[type="text"] { flex: 1; min-width: 240px; padding: 10px 12px; }
+      button { padding: 10px 12px; cursor: pointer; }
+      pre { background: #f6f6f6; padding: 12px; overflow: auto; }
+      .hint { opacity: .75; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <h2>Storyline Bridge (POC)</h2>
+    <p class="hint">
+      Ce fichier sert de WebObject pour Storyline. Il écoute <code>postMessage</code> (AGENT_REQUEST) et renvoie
+      <code>AGENT_RESULT</code>. Il inclut aussi une UI minimale pour tester sans Storyline.
+    </p>
+
+    <div class="row">
+      <input id="text" type="text" placeholder="Tape un message…" />
+      <button id="send">Envoyer</button>
+      <button id="reset">Reset session</button>
+    </div>
+
+    <audio id="audio" controls style="width:100%; margin-top: 12px;"></audio>
+    <pre id="log"></pre>
+    <button id="playFallback" style="display:none; position:fixed; bottom:12px; right:12px; z-index:9999;">
+      ▶ Play audio
+    </button>
+
+
+
+    <script src="./bridge.js"></script>
+  </body>
+</html>

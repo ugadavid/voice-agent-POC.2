@@ -1,0 +1,5 @@
+.env
+/tmp_uploads
+/node_modules
+/docker
+/docs
