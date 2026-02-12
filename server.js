@@ -16,6 +16,8 @@ import { registerRagSearchRoute } from "./src/routes/ragSearch.js";
 
 import { LIMITS } from "./src/constants.js";
 
+import audioRoutes from "./src/routes/audio.js";
+
 const app = express();
 
 // Middlewares (ordre important)
@@ -23,6 +25,8 @@ app.use(express.static("public"));
 app.use(express.json({ limit: LIMITS.JSON_BODY_MB }));
 //  realtime
 app.use(express.text({ type: ["application/sdp", "text/plain"] }));
+
+app.use("/api/audio", audioRoutes);
 
 // Dépendances partagées
 //const deps = { openai, SYSTEM_PROMPT, STRUCTURED_INSTRUCTIONS };

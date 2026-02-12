@@ -3,6 +3,7 @@ import { sanitizeEmotion, sanitizeIntent } from "../utils/sanitize.js";
 import { toHttpError } from "../utils/errors.js";
 import { synthesizeMp3Base64 } from "../services/tts.js";
 import { appendTurn, getMemory, getOrCreateSession } from "../services/sessionStore.js";
+import { saveBase64Mp3 } from "../utils/saveAudioFile.js";
 
 /**
  * Storyline-friendly endpoint.
@@ -91,13 +92,21 @@ export function registerSessionMessageRoute(app, { openai, SYSTEM_PROMPT, STRUCT
         audioMp3Base64 = await synthesizeMp3Base64(openai, parsed.replyText);
       }
 
+      let audioUrl = null;
+
+      if (audioMp3Base64) {
+        const saved = saveBase64Mp3(audioMp3Base64);
+        audioUrl = `/api/audio/tmp/${saved.file}`;
+      }
+
       res.json({
         sessionId,
         intent: parsed.intent,
         emotion: parsed.emotion,
         confidence: typeof parsed.confidence === "number" ? parsed.confidence : 0.5,
         replyText: parsed.replyText,
-        audioMp3Base64,
+        //audioMp3Base64,
+        audioUrl,
       });
     } catch (err) {
       const { status, message } = toHttpError(err);

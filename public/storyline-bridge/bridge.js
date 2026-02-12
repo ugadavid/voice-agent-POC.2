@@ -89,6 +89,7 @@ async function handleRequest(text, opts = {}) {
     intent: data.intent,
     emotion: data.emotion,
     confidence: data.confidence,
+    audioUrl: data.audioUrl,
   });
 }
 
